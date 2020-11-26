@@ -181,7 +181,7 @@ void generateRandom(Chip8 *chip8) { //Opcode 22, 0xCxkk, RND VX=
     chip8->PC += 2;
 }
 
-void draw(Chip8 *chip8) { 
+void draw(Chip8 *chip8) { //Opcode 23, 0xDxyn, DRW VX, VY
     uint8_t erasedPixels = 0;
     uint16_t pos;
     uint8_t pixelValue;
@@ -193,7 +193,7 @@ void draw(Chip8 *chip8) {
             } else {
                 pixelValue = 0x00;
             }
-            if((chip8->video[pos + j] ^ pixelValue) != (chip8->video[pos + j] | pixelValue)) {
+            if((chip8->video[pos + (7 - j)] ^ pixelValue) != (chip8->video[pos + (7 - j)] | pixelValue)) {
                 erasedPixels = 1;
             }
             chip8->video[pos + (7 - j)] ^= pixelValue;
