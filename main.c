@@ -15,15 +15,22 @@
 
 int main(int argc, char *argv[]) {
     //Ensures a rom name is specified
-    if(argc != 2) {
-        printf("Invalid number of command line arguments!\nUsage: chip8 [Path to ROM]\n");
+    if(argc == 1) {
+        printf("Invalid number of command line arguments!\nUsage: chip8 [Path to ROM] (Instructions per frame)\n");
         return 1;
     }
     //Opens a file pointer to the location specified and reads it as binary
     FILE *rom = fopen(argv[1], "rb");
     if(rom == NULL) {
-        printf("Error: File specified does not exist!\nUsage: chip [Path to ROM]\n");
+        printf("Error: File specified does not exist!\nUsage: chip8 [Path to ROM] (Instructions per frame)\n");
         return 2;
+    }
+    int instructionsPerFrame = 8;
+    if(argc == 3) {
+        instructionsPerFrame = atoi(argv[2]);
+        if(!instructionsPerFrame) {
+            printf("Error: Invalid frequency!\n Usage: chip8 [Path to ROM] (Instructions per frame)\n");
+        }
     }
     Chip8 chip8;
     initializeSystem(&chip8);
@@ -51,7 +58,7 @@ int main(int argc, char *argv[]) {
             break;
         }
         freq = clock();
-        for(j = 0; j < 8; j++) {
+        for(j = 0; j < instructionsPerFrame; j++) {
             error = readInstruction(&chip8);
             if(error) {
                 printf("ERROR\n");
