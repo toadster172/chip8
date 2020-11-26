@@ -145,7 +145,7 @@ void subtractVXVY(Chip8 *chip8) { //Opcode 17, 0x8xy7, SUBN VX, VY
     chip8->PC += 2;
 }
 
-void leftShiftVY(Chip8 *chip8) {
+void leftShiftVY(Chip8 *chip8) { //Opcode 18, 0x8xyE, SHL VX, VY
     chip8->V[0x0F] = (chip8->V[chip8->memory[chip8->PC] & 0x0F] & 0x80) / 0x80;
     chip8->V[chip8->memory[chip8->PC] & 0x0F] *= 0x02;
     chip8->PC += 2;
@@ -245,7 +245,7 @@ void addIVX(Chip8 *chip8) { //Opcode 30, 0xFx1E, ADD I, VX
     chip8->PC += 2;
 }
 
-void loadFontAddress (Chip8 *chip8) {
+void loadFontAddress (Chip8 *chip8) { //Opcode 30, 0xFx29, LD F, VX
     chip8->I = (chip8->V[chip8->memory[chip8->PC] & 0x0F]) * 5 + 50;
     chip8->PC += 2;
 }

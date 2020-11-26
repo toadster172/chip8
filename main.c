@@ -41,14 +41,7 @@ int main(int argc, char *argv[]) {
         return 3;
     }
     srand(time(NULL));
-    int i = 0;
-    int j;
     clock_t freq;
-    for(uint8_t i = 0; i < 32; i++) { //Clear screen
-        for(uint8_t j = 0; j < 64; j++) {
-            chip8.video[(i * 64) + j] = 0;
-        }
-    }
     SDL_Window *window;
     SDL_Texture *texture;
     SDL_Renderer *renderer;
@@ -58,13 +51,12 @@ int main(int argc, char *argv[]) {
             break;
         }
         freq = clock();
-        for(j = 0; j < instructionsPerFrame; j++) {
+        for(int i = 0; i < instructionsPerFrame; i++) {
             error = readInstruction(&chip8);
             if(error) {
                 printf("ERROR\n");
                 return 4;
             }
-            i++;
         }
         if(chip8.ST) {
             chip8.ST--;
