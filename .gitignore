@@ -1,3 +1,5 @@
 chip8
 roms/
 .vscode/
+obj/
+*.o
