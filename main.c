@@ -1,17 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "chip8Type.h"
 #include "chip8.h"
 #include "sdlFunctions.h"
-
-#ifdef _WIN32
-    #include <Windows.h>
-#else
-    #include <unistd.h>
-#endif
-
 
 int main(int argc, char *argv[]) {
     //Ensures a rom name is specified
@@ -67,7 +60,7 @@ int main(int argc, char *argv[]) {
         updateFrame(&chip8, window, renderer, texture, 16);
         freq = clock() - freq;
         if((double) freq / CLOCKS_PER_SEC < 1 / 60.0) {
-            usleep(((1.0 / 60.0) - ((double) freq / CLOCKS_PER_SEC)) * 1000000);
+            SDL_Delay(((1.0 / 60.0) - ((double) freq / CLOCKS_PER_SEC)) * 1000);
         }
     }
     graphicsEnd(&window, &renderer, &texture);

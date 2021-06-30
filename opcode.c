@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
 #include "opcode.h"
 #include "chip8Type.h"
 #include "sdlFunctions.h"

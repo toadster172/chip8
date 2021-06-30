@@ -1,5 +1,9 @@
-chip8
 roms/
-.vscode/
 obj/
-*.o
+wobj/
+.vscode/
+*.dll
+*.lib
+*.exe
+chip8
+
