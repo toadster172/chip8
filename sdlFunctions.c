@@ -22,7 +22,7 @@ void sinCallback(void *userdata, Uint8 *stream, int len) {
     int sampleNumber = *((int *) userdata);
     for(int i = 0; i < len; i++, sampleNumber++) {
         double t = (double) sampleNumber / 44100.0;
-        stream[i] = (109.0 * sin(2.0 * 3.141592 * 440 * t));
+        stream[i] = (Sint8) (109 * sin(2.0 * 3.141592 * 440 * t));
     }
     *((int *) userdata) = sampleNumber;
 }
