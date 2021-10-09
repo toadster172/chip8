@@ -1,6 +1,6 @@
 CC = cc
 WCC = x86_64-w64-mingw32-gcc
-CFLAGS = `sdl2-config --cflags --libs`
+CFLAGS = `sdl2-config --cflags --libs` -lm
 WCFLAGS = -I/usr/include/SDL2 -L./ -D_REENTRANT -lSDL2main -lSDL2
 ODIR=obj
 WODIR=wobj

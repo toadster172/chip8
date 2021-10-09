@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <math.h>
 #include <SDL.h>
+
 #include "sdlFunctions.h"
 #include "chip8Type.h"
 
@@ -13,6 +15,30 @@ void graphicsInit(SDL_Window **window, SDL_Renderer **renderer, SDL_Texture **te
     SDL_Delay(1000 / 60);
     SDL_RenderClear(*renderer);
     SDL_RenderPresent(*renderer);
+}
+
+//Handles the beeper audio with a sin wave
+void sinCallback(void *userdata, Uint8 *stream, int len) {
+    int sampleNumber = *((int *) userdata);
+    for(int i = 0; i < len; i++, sampleNumber++) {
+        double t = (double) sampleNumber / 44100.0;
+        stream[i] = (109.0 * sin(2.0 * 3.141592 * 440 * t));
+    }
+    *((int *) userdata) = sampleNumber;
+}
+
+void audioInit() {
+    SDL_Init(SDL_INIT_AUDIO);
+    SDL_AudioSpec desiredAudio;
+    desiredAudio.freq = 44100;
+    desiredAudio.format = AUDIO_S8;
+    desiredAudio.channels = 1;
+    desiredAudio.samples = 4096;
+    desiredAudio.callback = sinCallback;
+    desiredAudio.userdata = malloc(sizeof(int));
+
+    SDL_AudioSpec returnedAudio;
+    SDL_OpenAudio(&desiredAudio, &returnedAudio);
 }
 
 void updateFrame(Chip8 *chip8, SDL_Window *window, SDL_Renderer *renderer, SDL_Texture *texture, uint8_t scale) {

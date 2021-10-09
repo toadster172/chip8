@@ -39,6 +39,8 @@ int main(int argc, char *argv[]) {
     SDL_Texture *texture;
     SDL_Renderer *renderer;
     graphicsInit(&window, &renderer, &texture, 16);
+    audioInit();
+
     while(1) {
         if(queryKey(0x10)) {
             break;
@@ -52,7 +54,11 @@ int main(int argc, char *argv[]) {
             }
         }
         if(chip8.ST) {
+            SDL_PauseAudio(0);
             chip8.ST--;
+            if(!chip8.ST) {
+                SDL_PauseAudio(1);
+            }
         }
         if(chip8.DT) {
             chip8.DT--;
