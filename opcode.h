@@ -18,9 +18,11 @@ void bitAndVXVY      (Chip8 *chip8); //Opcode 12, 0x8xy2, AND VX, VY
 void bitXorVXVY      (Chip8 *chip8); //Opcode 13, 0x8xy3, XOR VX, VY
 void addVXVY         (Chip8 *chip8); //Opcode 14, 0x8xy4, ADD VX, VY
 void subtractVYVX    (Chip8 *chip8); //Opcode 15, 0x8xy5, SUB VX, VY
-void rightShiftVY    (Chip8 *chip8); //Opcode 16, 0x8xy6, SHR VX, VY
+void rightShiftVXVY  (Chip8 *chip8); //Opcode 16, 8xy6, SHR VX, VY
+void rightShiftVX    (Chip8 *chip8); //Opcode 16Q, 0x8xy6, SHR VX
 void subtractVXVY    (Chip8 *chip8); //Opcode 17, 0x8xy7, SUBN VX, VY
-void leftShiftVY     (Chip8 *chip8); //Opcode 18, 0x8xyE, SHL VX, VY
+void leftShiftVXVY   (Chip8 *chip8); //Opcode 18, 0x8xyE, SHL VX, VY
+void leftShiftVX     (Chip8 *chip8); //Opcode 18Q, 0x8xyE, SHL VX
 void skipVXNotEqualVY(Chip8 *chip8); //Opcode 19, 0x9xy0, SNE VX, VY
 void loadIAddress    (Chip8 *chip8); //Opcode 20, 0xAnnn, LD I
 void jumpPlusV0      (Chip8 *chip8); //Opcode 21, 0xBnnn, JP V0

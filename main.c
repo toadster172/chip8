@@ -41,7 +41,14 @@ int main(int argc, char *argv[]) {
             printf("Error: Invalid frequency!\n Usage: chip8 [Path to ROM] (Instructions per frame)\n");
         }
     }
+
     Chip8 chip8;
+    if(argc == 4) {
+        chip8.quirkFlags = atoi(argv[3]);
+    } else {
+        chip8.quirkFlags = 0;
+    }
+
     initializeSystem(&chip8);
     int error = loadRom(&chip8, rom);
     fclose(rom);

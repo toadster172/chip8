@@ -20,6 +20,7 @@ typedef struct _chip8 {
 
     uint8_t awaitKey;
     uint8_t mostRecentKey;
+    uint16_t quirkFlags;
 
     void (*opcodeTable[16]) (struct _chip8 *chip8);
     

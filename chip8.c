@@ -110,9 +110,9 @@ void initializeSystem(Chip8 *chip8) {
     chip8->opcode8Table[0x3] = bitXorVXVY; //Opcode 13 8xy3, XOR VX, VY
     chip8->opcode8Table[0x4] = addVXVY; //Opcode 14 8xy4, ADD VX, VY
     chip8->opcode8Table[0x5] = subtractVYVX; //Opcode 15 8xy5, SUB VX, VY
-    chip8->opcode8Table[0x6] = rightShiftVY; //Opcode 16 8xy6, SHR VX, VY
+    chip8->opcode8Table[0x6] = rightShiftVX; //Opcode 16Q 8xy6, SHR VX
     chip8->opcode8Table[0x7] = subtractVXVY; //Opcode 17 8xy7, SUBN VX, VY
-    chip8->opcode8Table[0xE] = leftShiftVY; //Opcode 18 8xyE, SHL VX, VY
+    chip8->opcode8Table[0xE] = leftShiftVX; //Opcode 18Q 8xyE, SHL VX
 
     chip8->opcodeTable[0x9] = skipVXNotEqualVY; //Opcode 19 9xy0, SNE VX, VY
     chip8->opcodeTable[0xA] = loadIAddress; //Opcode 20 Annn, LD I
@@ -134,6 +134,11 @@ void initializeSystem(Chip8 *chip8) {
     chip8->opcodeFTable[0x33] = loadBCDI; //Opcode 31 Fx33, LD B, VX
     chip8->opcodeFTable[0x55] = loadMemoryVX; //Opcode 32 Fx55, LD [I], VX
     chip8->opcodeFTable[0x65] = loadVXMemory; //Opcode 33 Fx65, LD VX [I]
+    
+    if(chip8->quirkFlags & 0x01) {
+        chip8->opcode8Table[0x6] = rightShiftVXVY;
+        chip8->opcode8Table[0xE] = leftShiftVXVY;
+    }
 
     chip8->illegalAccess = 0;
     chip8->awaitKey = 0;

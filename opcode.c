@@ -116,7 +116,14 @@ void subtractVYVX(Chip8 *chip8) { //Opcode 15, 0x8xy5, SUB VX, VY
     chip8->PC += 2;
 }
 
-void rightShiftVY(Chip8 *chip8) { //Opcode 16, 0x8xy6, SHR VX, VY
+void rightShiftVXVY(Chip8 *chip8) { //Opcode 16, 8xy6, SHR VX, VY
+    chip8->V[0x0F] = chip8->V[chip8->opcodeNibble[2]] & 0x01;
+    chip8->V[chip8->opcodeNibble[1]] = (chip8->V[chip8->opcodeNibble[2]] >> 1);
+    chip8->PC += 2;
+}
+
+//Shift quirks ignore VY register, simly shifting VX left or right one
+void rightShiftVX(Chip8 *chip8) { //Opcode 16Q, 0x8xy6, SHR VX
     chip8->V[0x0F] = chip8->V[chip8->opcodeNibble[1]] & 0x01;
     chip8->V[chip8->opcodeNibble[1]] >>= 0x01;
     chip8->PC += 2;
@@ -132,7 +139,14 @@ void subtractVXVY(Chip8 *chip8) { //Opcode 17, 0x8xy7, SUBN VX, VY
     chip8->PC += 2;
 }
 
-void leftShiftVY(Chip8 *chip8) { //Opcode 18, 0x8xyE, SHL VX, VY
+void leftShiftVXVY(Chip8 *chip8) { //Opcode 18, 0x8xyE, SHL VX, VY
+    chip8->V[0x0F] = chip8->V[chip8->opcodeNibble[2]] >> 0x07;
+    chip8->V[chip8->opcodeNibble[1]] = (chip8->V[chip8->opcodeNibble[2]] << 1);
+    chip8->PC +=2;
+}
+
+//Shift quirks ignore VY register, simply shifting VX left or right one
+void leftShiftVX(Chip8 *chip8) { //Opcode 18Q, 0x8xyE, SHL VX
     chip8->V[0x0F] = chip8->V[chip8->opcodeNibble[1]] >> 0x07;
     chip8->V[chip8->opcodeNibble[1]] <<= 0x01;
     chip8->PC += 2;
