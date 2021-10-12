@@ -18,6 +18,9 @@ typedef struct _chip8 {
     uint8_t opcodeNibble[4]; //Stores each hex character in opcode
     uint8_t illegalAccess; //Set to one in case of illegal instruction, quits if set
 
+    uint8_t awaitKey;
+    uint8_t mostRecentKey;
+
     void (*opcodeTable[16]) (struct _chip8 *chip8);
     
     void (*opcode0Table[256]) (struct _chip8 *chip8);

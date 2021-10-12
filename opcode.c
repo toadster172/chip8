@@ -188,7 +188,13 @@ void loadVXDT(Chip8 *chip8) { //Opcode 26, 0xFx07, LD VX, DT
 }
 
 void loadVXK(Chip8 *chip8) { //Opcode 27, 0xFx0A, LD VX, K
-    chip8->PC += 2;
+    if(chip8->mostRecentKey != 0xFF) {
+        chip8->V[chip8->opcodeNibble[1]] = chip8->mostRecentKey;
+        chip8->mostRecentKey = 0xFF;
+        chip8->PC += 2;
+    } else {
+        chip8->awaitKey = 1;
+    }
 }
 
 void loadDTVX(Chip8 *chip8) { //Opcode 28, 0xFx15, LD DT, VX

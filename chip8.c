@@ -120,6 +120,8 @@ void initializeSystem(Chip8 *chip8) {
     chip8->opcodeFTable[0x65] = loadVXMemory; //Opcode 33 Fx65, LD VX [I]
 
     chip8->illegalAccess = 0;
+    chip8->awaitKey = 0;
+    chip8->mostRecentKey = 0xFF;
 }
 
 int readInstruction(Chip8 *chip8) {

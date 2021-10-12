@@ -47,12 +47,21 @@ int main(int argc, char *argv[]) {
         }
         freq = clock();
         for(int i = 0; i < instructionsPerFrame; i++) {
+            if(chip8.awaitKey) {
+                uint8_t key = getNewKey();
+                if(key != 0xFF) {
+                    chip8.mostRecentKey = key;
+                    chip8.awaitKey = 0;
+                }
+                break;
+            }
             error = readInstruction(&chip8);
             if(error) {
                 printf("ERROR\n");
                 return 4;
             }
         }
+
         if(chip8.ST) {
             SDL_PauseAudio(0);
             chip8.ST--;
@@ -63,6 +72,7 @@ int main(int argc, char *argv[]) {
         if(chip8.DT) {
             chip8.DT--;
         }
+
         updateFrame(&chip8, window, renderer, texture, 16);
         freq = clock() - freq;
         if((double) freq / CLOCKS_PER_SEC < 1 / 60.0) {
