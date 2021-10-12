@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
 
     Chip8 chip8;
     if(argc == 4) {
+        instructionsPerFrame = atoi(argv[2]);
         chip8.quirkFlags = atoi(argv[3]);
     } else {
         chip8.quirkFlags = 0;
