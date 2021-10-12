@@ -17,14 +17,20 @@ void graphicsInit(SDL_Window **window, SDL_Renderer **renderer, SDL_Texture **te
     SDL_RenderPresent(*renderer);
 }
 
-//Handles the beeper audio with a sin wave
-void sinCallback(void *userdata, Uint8 *stream, int len) {
-    int sampleNumber = *((int *) userdata);
-    for(int i = 0; i < len; i++, sampleNumber++) {
-        double t = (double) sampleNumber / 44100.0;
-        stream[i] = (Sint8) (109 * sin(2.0 * 3.141592 * 440 * t));
+//Handles the beeper audio with 441 hz square wave
+void squareCallback(void *userdata, Uint8 *stream, int len) {
+    int location = *((int *) userdata);
+
+    for(int i = 0; i < len; i++, location++) {
+        if(location % 100 < 50) {
+            stream[i] = 64;
+        } else {
+            stream[i] = -64;
+        }
     }
-    *((int *) userdata) = sampleNumber;
+
+    location %= 100;
+    *((int *) userdata) = location;
 }
 
 void audioInit() {
@@ -34,7 +40,7 @@ void audioInit() {
     desiredAudio.format = AUDIO_S8;
     desiredAudio.channels = 1;
     desiredAudio.samples = 4096;
-    desiredAudio.callback = sinCallback;
+    desiredAudio.callback = squareCallback;
     desiredAudio.userdata = malloc(sizeof(int));
 
     SDL_AudioSpec returnedAudio;
