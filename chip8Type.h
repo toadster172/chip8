@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-typedef struct ch8{
+typedef struct _chip8 {
     uint8_t memory[4096];
     uint8_t video[2048];
     uint16_t stack[16];
@@ -16,8 +16,14 @@ typedef struct ch8{
     uint16_t PC;
 
     uint8_t opcodeNibble[4]; //Stores each hex character in opcode
+    uint8_t illegalAccess; //Set to one in case of illegal instruction, quits if set
 
-    void (*opcodeTable[16]) (struct ch8 *chip8);
+    void (*opcodeTable[16]) (struct _chip8 *chip8);
+    
+    void (*opcode0Table[256]) (struct _chip8 *chip8);
+    void (*opcode8Table[16]) (struct _chip8 *chip8);
+    void (*opcodeETable[256]) (struct _chip8 *chip8);
+    void (*opcodeFTable[256]) (struct _chip8 *chip8);
 } Chip8;
 
 #endif
