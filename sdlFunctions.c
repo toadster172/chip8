@@ -1,4 +1,4 @@
-/* Copyright (C) 2020, 2p21 Alice Shelton <AliceAShelton@gmail.com>
+/* Copyright (C) 2020, 2021 Alice Shelton <AliceAShelton@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
