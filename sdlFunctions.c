@@ -33,7 +33,7 @@ void squareCallback(void *userdata, Uint8 *stream, int len) {
     *((int *) userdata) = location;
 }
 
-void audioInit() {
+void audioInit(void) {
     SDL_Init(SDL_INIT_AUDIO);
     SDL_AudioSpec desiredAudio;
     desiredAudio.freq = 44100;
