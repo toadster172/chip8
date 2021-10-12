@@ -206,12 +206,12 @@ void addIVX(Chip8 *chip8) { //Opcode 30, 0xFx1E, ADD I, VX
     chip8->PC += 2;
 }
 
-void loadFontAddress (Chip8 *chip8) { //Opcode 30, 0xFx29, LD F, VX
+void loadFontAddress (Chip8 *chip8) { //Opcode 31, 0xFx29, LD F, VX
     chip8->I = chip8->V[chip8->opcodeNibble[1]] * 5 + 50;
     chip8->PC += 2;
 }
 
-void loadBCDI(Chip8 *chip8) { //Opcode 31, 0xFx33, LD B, VX
+void loadBCDI(Chip8 *chip8) { //Opcode 32, 0xFx33, LD B, VX
     uint8_t digits[3];
     uint8_t num = chip8->V[chip8->opcodeNibble[1]];
     for(uint8_t i = 0; i < 3; i++) {
@@ -224,14 +224,14 @@ void loadBCDI(Chip8 *chip8) { //Opcode 31, 0xFx33, LD B, VX
     chip8->PC += 2;
 }
 
-void loadMemoryVX(Chip8 *chip8) { //Opcode 32, 0xFx55, LD [I], VX
+void loadMemoryVX(Chip8 *chip8) { //Opcode 33, 0xFx55, LD [I], VX
     for(uint8_t i = 0; i < chip8->opcodeNibble[1] + 1; i++) {
         chip8->memory[chip8->I + i] = chip8->V[i];
     }
     chip8->PC += 2;
 }
 
-void loadVXMemory(Chip8 *chip8) { //Opcode 33, 0xFx65, LD VX [I]
+void loadVXMemory(Chip8 *chip8) { //Opcode 34, 0xFx65, LD VX [I]
     for(uint8_t i = 0; i < chip8->opcodeNibble[1] + 1; i++) {
         chip8->V[i] = chip8->memory[chip8->I + i];
     }
